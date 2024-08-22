@@ -71,7 +71,7 @@ This application uses the H2 database in-memory mode for simplicity. The databas
 http://localhost:8080/h2-console
 ```
 
-**Note**: The JDBC URL for the H2 console is pre-configured as `jdbc:h2:mem:testdb`. You can use the default username `sa` and leave the password blank.
+**Note**: The JDBC URL for the H2 console is pre-configured as `jdbc:h2:mem:db`. You can use the default username `sa` and leave the password blank.
 
 ### API Endpoints
 
@@ -142,7 +142,7 @@ To package the application as a WAR file and run it, follow these steps:
     java -jar target/employee-app.war
     ```
 
-   Replace `your-application-name.war` with the actual name of the generated WAR file.
+   Replace `employee-app.war` with the actual name of the generated WAR file.
 
 ## Acknowledgements
 
