@@ -1,0 +1,93 @@
+openapi: 3.0.1
+info:
+  title: Employee Management API
+  description: API for managing employees in the system
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080
+
+paths:
+  /employees:
+    get:
+      summary: Get all employees
+      description: Retrieve the list of all employees
+      responses:
+        '200':
+          description: Successfully retrieved the list of employees
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employee'
+        '500':
+          description: Internal server error
+
+  /employees/{id}:
+    get:
+      summary: Get employee by ID
+      description: Retrieve an employee by their ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID of the employee to retrieve
+      responses:
+        '200':
+          description: Successfully retrieved the employee
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        '404':
+          description: Employee not found
+        '500':
+          description: Internal server error
+
+  /employees/annual-salary/{id}:
+    get:
+      summary: Compute annual salary
+      description: Compute the annual salary for an employee by their ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID of the employee whose salary is to be computed
+      responses:
+        '200':
+          description: Successfully computed the annual salary
+          content:
+            application/json:
+              schema:
+                type: number
+                format: double
+        '500':
+          description: Internal server error
+
+  /employees/fetch:
+    post:
+      summary: Fetch and save all employees
+      description: Fetch and save all employees from the external API
+      responses:
+        '200':
+          description: Successfully fetched and saved employees
+        '500':
+          description: Internal server error
+
+components:
+  schemas:
+    Employee:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        salary:
+          type: number
+          format: double

@@ -22,20 +22,11 @@ import java.util.Optional;
 public class EmployeeService {
     private static final String BASE_URL = "http://dummy.restapiexample.com/api/v1";
 
-    private final RestTemplate restTemplate;
-    private final EmployeeRepository employeeRepository;
-
-    /**
-     * Constructor for injecting the RestTemplate and EmployeeRepository.
-     *
-     * @param restTemplate The RestTemplate used to make API calls.
-     * @param employeeRepository The repository used for employee data management.
-     */
     @Autowired
-    public EmployeeService(RestTemplate restTemplate, EmployeeRepository employeeRepository) {
-        this.restTemplate = restTemplate;
-        this.employeeRepository = employeeRepository;
-    }
+    private RestTemplate restTemplate;
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     /**
      * Retrieve all employees from the database.
@@ -43,12 +34,7 @@ public class EmployeeService {
      * @return A list of all employees.
      */
     public List<Employee> getEmployees() {
-        try {
-            return employeeRepository.findAll();
-        } catch (Exception e) {
-            // Log the exception (use a logging framework like SLF4J)
-            throw new RuntimeException("Error retrieving employees from the database", e);
-        }
+        return employeeRepository.findAll();
     }
 
     /**
@@ -56,18 +42,14 @@ public class EmployeeService {
      *
      * @param id The ID of the employee to retrieve.
      * @return The employee with the specified ID.
+     * @throws RuntimeException if the employee is not found.
      */
     public Employee getEmployeeById(int id) {
-        try {
-            Optional<Employee> employee = employeeRepository.findById(id);
-            if (employee.isPresent()) {
-                return employee.get();
-            } else {
-                throw new RuntimeException("Employee with ID " + id + " not found");
-            }
-        } catch (Exception e) {
-            // Log the exception
-            throw new RuntimeException("Error retrieving employee with ID " + id, e);
+        Optional<Employee> employee = employeeRepository.findById(id);
+        if (employee.isPresent()) {
+            return employee.get();
+        } else {
+            throw new RuntimeException("Employee with ID " + id + " not found");
         }
     }
 
@@ -76,15 +58,11 @@ public class EmployeeService {
      *
      * @param id The ID of the employee whose salary is to be computed.
      * @return The annual salary of the employee.
+     * @throws RuntimeException if the employee is not found.
      */
     public double computeAnnualSalary(int id) {
-        try {
-            Employee employee = getEmployeeById(id);
-            return employee.getEmployeeSalary() * 12;
-        } catch (RuntimeException e) {
-            // Handle not found case or other issues
-            throw new RuntimeException("Error computing annual salary for employee with ID " + id, e);
-        }
+        Employee employee = getEmployeeById(id);
+        return employee.getEmployeeSalary() * 12;
     }
 
     /**
@@ -103,10 +81,8 @@ public class EmployeeService {
                 throw new RuntimeException("No employees data received from API");
             }
         } catch (RestClientException e) {
-            // Handle issues with API request
             throw new RuntimeException("Error fetching employees from API", e);
         } catch (Exception e) {
-            // Handle other unexpected issues
             throw new RuntimeException("Error saving employees to database", e);
         }
     }
