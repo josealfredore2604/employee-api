@@ -18,23 +18,45 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-
+/**
+ * Test class for {@link EmployeeService}.
+ * <p>
+ * This class contains tests for the {@link EmployeeService} class, specifically testing the
+ * functionality of retrieving employees by their ID.
+ * <p>
+ * The tests use Mockito for mocking dependencies and JUnit 5 for the testing framework.
+ */
 @SpringJUnitConfig
 @SpringBootTest
 @ActiveProfiles("test")
 public class EmployeeServiceTest {
 
+    /**
+     * Mock of the {@link EmployeeRepository} used to simulate interactions with the database.
+     */
     @Mock
     private EmployeeRepository employeeRepository;
 
+    /**
+     * Instance of {@link EmployeeService} to be tested. Mockito will inject the mocks into this instance.
+     */
     @InjectMocks
     private EmployeeService employeeService;
 
+    /**
+     * Setup method that initializes Mockito annotations before each test.
+     */
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
+    /**
+     * Test case for successfully retrieving an employee by their ID.
+     * <p>
+     * This test verifies that the {@link EmployeeService#getEmployeeById(int)} method correctly returns
+     * an employee when the ID is found in the mock repository.
+     */
     @Test
     public void testGetEmployeeById_Success() {
         // Arrange
@@ -58,6 +80,12 @@ public class EmployeeServiceTest {
         assertEquals(5000, result.getEmployeeSalary(), "Employee salary should match");
     }
 
+    /**
+     * Test case for handling the scenario where an employee is not found by their ID.
+     * <p>
+     * This test verifies that the {@link EmployeeService#getEmployeeById(int)} method throws a
+     * {@link RuntimeException} with the appropriate message when the ID is not found in the mock repository.
+     */
     @Test
     public void testGetEmployeeById_NotFound() {
         // Arrange

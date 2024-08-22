@@ -35,6 +35,20 @@ The application includes the following dependencies:
 - Java 17 or higher
 - Maven 3.8.1 or higher
 
+### Installation
+
+1. **Clone the Repository**
+
+   ```bash
+   git clone https://github.com/josealfredore2604/employee-app-test.git
+   ```
+
+2. **Navigate to the Project Directory**
+
+   ```bash
+   cd employee-app
+   ```
+
 ### Running the Application
 
 To run the application, use the following command:
@@ -74,11 +88,11 @@ http://localhost:8080/h2-console
 - **Method**: `GET`
 - **Description**: Retrieve an employee by their ID.
 - **Parameters**:
-    - `id` (path variable): The ID of the employee.
+  - `id` (path variable): The ID of the employee.
 - **Response**:
-    - `200 OK` with employee details if found.
-    - `404 Not Found` if the employee does not exist.
-    - `500 Internal Server Error` if an error occurs.
+  - `200 OK` with employee details if found.
+  - `404 Not Found` if the employee does not exist.
+  - `500 Internal Server Error` if an error occurs.
 
 #### Compute Annual Salary
 
@@ -86,10 +100,10 @@ http://localhost:8080/h2-console
 - **Method**: `GET`
 - **Description**: Compute the annual salary for an employee by their ID.
 - **Parameters**:
-    - `id` (path variable): The ID of the employee.
+  - `id` (path variable): The ID of the employee.
 - **Response**:
-    - `200 OK` with the annual salary.
-    - `500 Internal Server Error` if an error occurs.
+  - `200 OK` with the annual salary.
+  - `500 Internal Server Error` if an error occurs.
 
 #### Fetch and Save All Employees
 
@@ -97,16 +111,38 @@ http://localhost:8080/h2-console
 - **Method**: `POST`
 - **Description**: Fetch and save all employees from an external API.
 - **Response**:
-    - `200 OK` with a success message.
-    - `500 Internal Server Error` if an error occurs.
+  - `200 OK` with a success message.
+  - `500 Internal Server Error` if an error occurs.
 
 ## Application Configuration
 
 The application configuration is managed via the `application.properties` file located in the `src/main/resources` directory. Here you can configure database settings, logging, and other properties.
 
-## License
+## Packaging and Running as a WAR
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+To package the application as a WAR file and run it, follow these steps:
+
+1. **Modify the `pom.xml` file**: Ensure the file contains the following packaging configuration:
+
+    ```xml
+    <packaging>war</packaging>
+    ```
+
+2. **Package the Application**: Use Maven to create the WAR file:
+
+    ```bash
+    mvn clean package
+    ```
+
+   This will generate a WAR file in the `target` directory.
+
+3. **Run the WAR File**: Use the following command to run the WAR file:
+
+    ```bash
+    java -jar target/employee-app.war
+    ```
+
+   Replace `your-application-name.war` with the actual name of the generated WAR file.
 
 ## Acknowledgements
 
@@ -114,3 +150,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Springdoc OpenAPI**: For automatic generation of API documentation and Swagger UI.
 - **Lombok**: For reducing boilerplate code.
 - **JSON Processing (javax.json)**: For handling JSON data.
+
+## Contact
+
+For any questions or issues, please contact [josealfredore200326@gmail.com](mailto:josealfredore200326@gmail.com).
+```
