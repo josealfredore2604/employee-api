@@ -40,7 +40,7 @@ The application includes the following dependencies:
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/josealfredore2604/employee-app-test.git
+   git clone https://github.com/josealfredore2604/employee-api.git
    ```
 
 2. **Navigate to the Project Directory**
